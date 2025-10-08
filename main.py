@@ -7,7 +7,7 @@ import os
 CLIENT_ID= "enter id"
 CLIENT_SECRET= "enter secret"
 REDIRECT_URI="http://127.0.0.1:8080"
-SCOPE="user-top-read playlist-modify-private playlist-modify-public"
+SCOPE="user-top-read playlist-modify-private playlist-modify-public"#this scope allows for reading top tracks and creating/modifying playlists
 
 #Authenticate
 
@@ -25,32 +25,33 @@ sp = spotipy.Spotify( #Init spotipy class
 Get top 20 songs
 """
 def get_top_tracks():
-    top_tracks = sp.current_user_top_tracks(limit=20, time_range='short_term')
-    results = []
-    for item in top_tracks['items']:
-        track_id   = item['id']
-        track_name = item['name']
-        artists    = [artist['name'] for artist in item['artists']]
-        results.append((track_id, track_name, artists))
+    #This saves the users top 20 tracks to the temp list top_tracks
+    top_tracks = sp.current_user_top_tracks(limit=20, time_range='short_term') #'short_term' = last 4 weeks can be changed to 6 months ('medium_term') or all time ('long_term')
+    results = [] #empty list to store results
+    for item in top_tracks['items']: #iterate through each track item
+        track_id   = item['id'] #get track ID
+        track_name = item['name'] #get track name 
+        artists    = [artist['name'] for artist in item['artists']] #get list of all artists associated with the track
+        results.append((track_id, track_name, artists)) #append a tuple of: ( the ID, Song name, Artist(s) Names ) to the results 
     return results
 
 """
-Create playlist
+Create playlist with a title and description
 """
 def create_and_fill_playlist(track_ids):
-    user_id = sp.current_user()["id"]
-    name    = input("\nEnter a name for your new playlist: ").strip()
-    if not name:
-        print("Playlist name cannot be empty. Aborting.")
+    user_id = sp.current_user()["id"] #get user ID
+    name    = input("\nEnter a name for your new playlist: ").strip() #.strip() removes any leading/trailing whitespace
+    if not name: #if nothing was entered
+        print("Playlist name cannot be empty. Aborting.") 
         return
-    # Create private playlist
-    playlist = sp.user_playlist_create(
+    #Creates Playlist
+    playlist = sp.user_playlist_create( #playlist has the properties: id, Playlist Name, Public or Private, Playlist Description
         user=user_id, 
         name=name, 
-        public=False,
+        public=False, #private playlist
         description="top 20 songs"
     )
-    sp.playlist_add_items(playlist_id=playlist["id"], items=track_ids)
+    sp.playlist_add_items(playlist_id=playlist["id"], items=track_ids) #track_ids from get_top_tracks() is passed here to add the songs to the playlist
     print(f"Added {len(track_ids)} tracks to playlist: {name}")
 
 """
