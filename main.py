@@ -7,7 +7,7 @@ import os
 CLIENT_ID= "enter id"
 CLIENT_SECRET= "enter secret"
 REDIRECT_URI="http://127.0.0.1:8080"
-SCOPE="user-top-read playlist-modify-private playlist-modify-public playlist-read-private playlist-read-public"
+SCOPE="user-top-read playlist-modify-private playlist-modify-public"
 
 #Authenticate
 
@@ -84,7 +84,7 @@ def read_artist_list(file_path):
         return '\n'.join(lines) # add a new line between each artist
     
 
-if __name__ == "main":
+if __name__ == "__main__":
     top20=get_top_tracks()#get the tracks
     save = input("\nWould you like to save these to a new private playlist? (y/n): ").strip().lower()#ask user if they want to save the tracks
     if save == 'y':
@@ -95,4 +95,3 @@ if __name__ == "main":
         create_and_fill_playlist(track_ids)#create into playlist
     else:
         pass
-    
