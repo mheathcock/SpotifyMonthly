@@ -1,11 +1,52 @@
-# Program to make monthly playlists containing Users top Spotify tracks of the past month. 
+# Spotify Monthly
+
+A Python script that uses the Spotify Web API to fetch your current top 20 tracks (short-term, last 4 weeks) and automatically creates a new playlist with them. It also saves your top artists for analysis.
+---
+## Features
+
+* **Fetch Top Tracks:** Retrieves your **top 20 tracks** from the last four weeks (`short_term` time frame).
+* **Playlist Creation:** Creates a **new** Spotify playlist with the fetched tracks, prompting the user for a playlist name.
+* **Artist Analysis:** Saves the track names and associated artists to `artist_list.txt` and then counts the occurrences of each artist, saving the sorted results to `artist_count.txt`. 
+
 ---
 
- **Don't forget to edit `#Config` in `main.py` to use your application specific client id/secret.**
+## Installation and Setup
 
----
+### Prerequisites
 
+* **Python 3.x**
+* A **Spotify Developer Account** to obtain your `CLIENT_ID` and `CLIENT_SECRET`.
 
-### Currently working on
-  - Functionality to allow **any** user to use app **without** the need to have their own Spotify Developer App.
-  - Functionality started to save each monthly recap into a growing file. This can then be used at the end of the year to sum up and sort Artists by how often they have appeared in the monthly playlists. *(A basic spotify wrap in a way)*
+### 1. Clone the Repository
+
+```bash
+git clone [https://github.com/mheathcock/SpotifyMonthly.git](https://github.com/mheathcock/SpotifyMonthly.git)
+cd SpotifyMonthly
+```
+
+### 2. Install Dependencies
+
+This project relies on the `spotipy` library. Install it using the provided `requirements.txt` file:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. API Key Configuration
+
+You must configure your Spotify App credentials within your main Python script:
+
+1.  Go to the [Spotify Developer Dashboard].
+2.  Create an application and obtain your **Client ID** and **Client Secret**.
+3.  In your app settings, ensure **`http://127.0.0.1:8080`** is added to the **Redirect URIs** list.
+4.  Replace the placeholders in your script with your actual credentials:
+    ```python
+    CLIENT_ID= "your_client_id_here"
+    CLIENT_SECRET= "your_client_secret_here"
+    ```
+
+## Currently Working On
+
+* Functionality to allow **any user** to use the app **without** the need for personal Spotify Developer App setup (simplifying the setup).
+* Functionality to save each monthly recap into a growing file for end of year analysis *(A basic Spotify Wrapped style summary)*.
+* **GUI Functionality:** Developing a graphical user interface (GUI) to replace the current command-line interface (CLI) for easier, more intuitive use.
