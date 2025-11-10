@@ -20,7 +20,7 @@ A Python script that uses the Spotify Web API to fetch your current top 20 track
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/mheathcock/SpotifyMonthly.git](https://github.com/mheathcock/SpotifyMonthly.git)
+git clone https://github.com/mheathcock/SpotifyMonthly.git
 cd SpotifyMonthly
 ```
 
