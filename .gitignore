@@ -1,1 +1,14 @@
-.env
+# Ignore everything outside the project folder
+../
+
+# Ignore common Python and OS files
+*.pyc
+__pycache__/
+.DS_Store
+*.log
+
+# Ignore data files specific to local run
+artist_list.txt
+artist_count.txt
+
+
