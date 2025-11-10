@@ -1,4 +1,4 @@
-# Program I made to make monthly playlists containing my top Spotify tracks of the past month. 
+# Program to make monthly playlists containing Users top Spotify tracks of the past month. 
 ---
 
  **Don't forget to edit `#Config` in `main.py` to use your application specific client id/secret.**
