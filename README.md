@@ -32,18 +32,6 @@ This project relies on the `spotipy` library. Install it using the provided `req
 pip install -r requirements.txt
 ```
 
-### 3. API Key Configuration
-
-You must configure your Spotify App credentials within your main Python script:
-
-1.  Go to the [Spotify Developer Dashboard].
-2.  Create an application and obtain your **Client ID** and **Client Secret**.
-3.  In your app settings, ensure **`http://127.0.0.1:8080`** is added to the **Redirect URIs** list.
-4.  Replace the placeholders in your script with your actual credentials:
-    ```python
-    CLIENT_ID= "your_client_id_here"
-    CLIENT_SECRET= "your_client_secret_here"
-    ```
 
 ## Currently Working On
 
