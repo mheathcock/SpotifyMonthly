@@ -1,6 +1,8 @@
 # Ignore everything outside the project folder
 ../
 
+
+.env
 # Ignore common Python and OS files
 *.pyc
 __pycache__/
@@ -10,5 +12,7 @@ __pycache__/
 # Ignore data files specific to local run
 artist_list.txt
 artist_count.txt
+
+.cache
 
 

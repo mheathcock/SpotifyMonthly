@@ -2,31 +2,39 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import ast
 import os
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 #Config
-CLIENT_ID= "enter id"
-CLIENT_SECRET= "enter secret"
-REDIRECT_URI="http://127.0.0.1:8080"
+CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID", "enter id") 
+CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET", "enter secret")
+REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI", "http://127.0.0.1:8080")
 SCOPE="user-top-read playlist-modify-private playlist-modify-public"#this scope allows for reading top tracks and creating/modifying playlists
 
-#Authenticate
+"""
+Set client variables, called in SpotifyMonthly.py 
+"""
+def get_spotify_client():
 
-sp = spotipy.Spotify( #Init spotipy class
-    auth_manager=SpotifyOAuth(   
-        client_id=CLIENT_ID,
-        client_secret=CLIENT_SECRET,
-        redirect_uri=REDIRECT_URI,  
-        scope=SCOPE 
+    
+    new_sp = spotipy.Spotify(
+        auth_manager=SpotifyOAuth(
+            client_id=CLIENT_ID,         
+            client_secret=CLIENT_SECRET, 
+            redirect_uri=REDIRECT_URI,  
+            scope=SCOPE,
+            cache_path=None 
+        )
     )
-)
-
+    return new_sp
 
 """
 Get top 20 songs
 """
-def get_top_tracks():
+def get_top_tracks(sp_client):
     #This saves the users top 20 tracks to the temp list top_tracks
-    top_tracks = sp.current_user_top_tracks(limit=20, time_range='short_term') #'short_term' = last 4 weeks can be changed to 6 months ('medium_term') or all time ('long_term')
+    top_tracks = sp_client.current_user_top_tracks(limit=20, time_range='short_term') #'short_term' = last 4 weeks can be changed to 6 months ('medium_term') or all time ('long_term')
     results = [] #empty list to store results
     for item in top_tracks['items']: #iterate through each track item
         track_id   = item['id'] #get track ID
@@ -38,23 +46,26 @@ def get_top_tracks():
 """
 Create playlist with a title and description
 """
-def create_and_fill_playlist(track_ids):
-    user_id = sp.current_user()["id"] #get user ID
+def create_and_fill_playlist(sp_client, track_ids):
+    user_id = sp_client.current_user()["id"] #get user ID
     name    = input("\nEnter a name for your new playlist: ").strip() #.strip() removes any leading/trailing whitespace
     if not name: #if nothing was entered
         print("Playlist name cannot be empty. Aborting.") 
         return
     #Creates Playlist
-    playlist = sp.user_playlist_create( #playlist has the properties: id, Playlist Name, Public or Private, Playlist Description
+    playlist = sp_client.user_playlist_create( #playlist has the properties: id, Playlist Name, Public or Private, Playlist Description
         user=user_id, 
         name=name, 
         public=False, #private playlist
         description="top 20 songs"
     )
-    sp.playlist_add_items(playlist_id=playlist["id"], items=track_ids) #track_ids from get_top_tracks() is passed here to add the songs to the playlist
+    sp_client.playlist_add_items(playlist_id=playlist["id"], items=track_ids) #track_ids from get_top_tracks() is passed here to add the songs to the playlist
     print(f"Added {len(track_ids)} tracks to playlist: {name}")
 
 """
+Rework started to implement these into the GUI for data analysis 
+
+
 Write the artist list to a text file 
 """
 def write_artist_list(artist_list, file_path):
