@@ -1,18 +1,19 @@
-# Ignore everything outside the project folder
-../
-
-
+#Security and Local Configuration 
 .env
-# Ignore common Python and OS files
+
+#Python Environment and Cache
 *.pyc
 __pycache__/
-.DS_Store
-*.log
+.cache
+.venv/
+venv/
+/dist/
+/build/
 
-# Ignore data files specific to local run
+#Local Data Output 
 artist_list.txt
 artist_count.txt
+*.log
 
-.cache
-
-
+# OS/Editor Files 
+.DS_Store
