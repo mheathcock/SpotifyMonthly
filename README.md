@@ -37,11 +37,11 @@ pip install -r requirements.txt
 1. **Create the File:** Copy the provided example file (`example env.env`), rename it to `.env`
    * **Linux/macOS/Git Bash:**
         ```bash
-        cp "example env.env" .env
+        cp "env example.env" .env
         ```
     * **Windows Command Prompt (CMD):**
         ```bash
-        copy "example env.env" .env
+        copy "env example.env" .env
         ```
 2.  **Populate Variables:**
     Open the newly created **`.env`** file and replace the placeholder values (`<YOUR_CLIENT_ID_HERE>`, etc.) with your actual Spotify Developer credentials.
