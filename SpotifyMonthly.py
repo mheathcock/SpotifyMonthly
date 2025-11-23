@@ -25,15 +25,7 @@ def login_gui():
     
     app.title("Login")
     
-    CTk.CTkButton(
-        app, 
-        text="Back", 
-        width=100, 
-        height=30, 
-        command=login_gui,
-        fg_color="gray", 
-        hover_color="darkgray"
-    ).pack(side="top", anchor="nw", pady=10, padx=10)#Back button to return to login/register choice screen
+
     main_Frame = CTk.CTkFrame(
         master=app,
         fg_color="#BB86FB",
@@ -78,12 +70,25 @@ def login_gui():
     )
     Login_button.pack(pady=(20, 5))
     
-  
+"""
+Main GUI Function for the app, is called once user is 
+logged in asking them if they want to view top tracks or analyse playlists
+"""       
 def MainGUI(spotify_client):
     for widget in app.winfo_children():
         widget.destroy()
+    app.title("Dashboard")    
     main_frame = CTk.CTkFrame(app, fg_color="transparent")
     main_frame.pack(expand=True, fill="both")
+    CTk.CTkButton(
+        main_frame, 
+        text="Back", 
+        width=100, 
+        height=30, 
+        command=login_gui,
+        fg_color="gray", 
+        hover_color="darkgray"
+    ).pack(side="top", anchor="nw", pady=10, padx=10)#Back button to return to login screen
     
     button_container = CTk.CTkFrame(main_frame, fg_color="transparent")
     button_container.pack(pady=50, expand=True, anchor="center")
@@ -118,9 +123,8 @@ def MainGUI(spotify_client):
   
   
 """
-Main GUI Function for the app, is called once user is 
-logged in and uses their credentials to set the config files and call the functions to display spotify info
-"""      
+Show Track GUI function that will show the user their top 20 tracks and allow them to create a playlist of these tracks
+""" 
 def Show_Track_GUI(spotify_client):
 
 
